@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  gateway:
+    container_name: gateway
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: gateway:latest
+    environment:
+      AUTH_HOST: auth
+    volumes:
+      - .:/service
+    networks:
+      - microservices
+    restart: always
+    ports:
+      - "8000:8000"
+
+networks:
+  microservices:
+    driver: bridge

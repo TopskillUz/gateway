@@ -1,10 +1,14 @@
+import os
+
 import grpc
 
 import auth_pb2, auth_pb2_grpc
 
 
 class GatewayClient:
-    def __init__(self, host='localhost', server_port=99999):
+    auth_host = os.environ.get('AUTH_HOST', 'localhost')
+
+    def __init__(self, host=auth_host, server_port=9999):
         self.host = host
         self.server_port = server_port
 
