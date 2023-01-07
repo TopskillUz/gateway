@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+  labels:
+    app: gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gateway
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 3
+  template:
+    metadata:
+      labels:
+        app: gateway
+    spec:
+      containers:
+#        - name: liveness
+#          image: k8s.gcr.io/liveness
+#          args:
+#            - /server
+#          livenessProbe:
+#            httpGet:
+#              path: /healthz
+#              port: 8081
+#              httpHeaders:
+#                - name: Custom-Header
+#                  value: Awesome
+#            initialDelaySeconds: 3
+#            periodSeconds: 3
+        - name: gateway
+          image: gateway
+          imagePullPolicy: Never
+          envFrom:
+            - configMapRef:
+                name: gateway-configmap
+            - secretRef:
+                name: gateway-secret
+
+      restartPolicy: Always

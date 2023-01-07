@@ -1,8 +1,8 @@
-//python -m grpc_tools.protoc -I protos/users --python_out=. --grpc_python_out=. protos/users/*.proto
+//python -m grpc_tools.protoc -I protos --python_out=grpc_generated_files --grpc_python_out=grpc_generated_files protos/*.proto
 syntax = "proto3";
 package auth;
 //import "users.proto";
-
+import "google/protobuf/wrappers.proto";
 
 message User {
   int32 id = 1;
@@ -25,9 +25,13 @@ message RegisterUserResponse {
 }
 
 
+message CheckUsernameRequest {
+  string username = 1;
+}
+
 service AuthService {
   rpc register(RegisterUserRequest) returns (RegisterUserResponse);
-//  rpc check_username (CheckUsernameRequest) returns (CheckUsernameResponse) {}
+  rpc check_username (CheckUsernameRequest) returns (google.protobuf.BoolValue);
 }
 
 
