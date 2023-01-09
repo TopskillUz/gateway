@@ -9,7 +9,7 @@ metadata:
     #nginx.ingress.kubernetes.io/proxy-max-temp-file-size: "1024m"
 spec:
   rules:
-    - host: topskill.uz
+    - host: api.topskill.uz
       http:
         paths:
           - path: /
